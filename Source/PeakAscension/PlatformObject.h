@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "PlayerCharacter.h"
 #include "PlatformObject.generated.h"
 
 UCLASS()
@@ -25,10 +26,15 @@ public:
 
 public:
 
+	void OnPlatformHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, 
+					   UPrimitiveComponent* OtherComponent, FVector NormalImpulse, 
+					   const FHitResult& Hit);
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* PlatformMesh;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FTransform InitialTransform;
 
+	virtual void PlayerPlatformHit(AActor* PlayerHit, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
 };

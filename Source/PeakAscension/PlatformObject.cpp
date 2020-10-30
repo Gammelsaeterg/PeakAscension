@@ -3,6 +3,7 @@
 
 #include "PlatformObject.h"
 #include "Components/StaticMeshComponent.h"
+#include "PlayerCharacter.h"
 
 // Sets default values
 APlatformObject::APlatformObject()
@@ -11,6 +12,7 @@ APlatformObject::APlatformObject()
 	PrimaryActorTick.bCanEverTick = true;
 
 	PlatformMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PlatformMesh"));
+	PlatformMesh->OnComponentHit.AddDynamic(this, &APlatformObject::OnPlatformHit);
 }
 
 // Called when the game starts or when spawned
@@ -25,6 +27,21 @@ void APlatformObject::BeginPlay()
 void APlatformObject::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+}
+
+void APlatformObject::OnPlatformHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, 
+	                  UPrimitiveComponent* OtherComponent, FVector NormalImpulse, 
+	                  const FHitResult& Hit)
+{
+	if (OtherActor->IsA(APlayerCharacter::StaticClass()))
+	{
+		PlayerPlatformHit(OtherActor, OtherComponent, NormalImpulse, Hit);
+	}
+}
+
+void APlatformObject::PlayerPlatformHit(AActor* PlayerHit, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
+{
 
 }
 
