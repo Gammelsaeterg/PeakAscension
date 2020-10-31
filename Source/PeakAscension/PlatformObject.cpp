@@ -12,6 +12,7 @@ APlatformObject::APlatformObject()
 	PrimaryActorTick.bCanEverTick = true;
 
 	PlatformMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PlatformMesh"));
+	PlatformMesh->bEditableWhenInherited = true;
 	PlatformMesh->OnComponentHit.AddDynamic(this, &APlatformObject::OnPlatformHit);
 }
 
