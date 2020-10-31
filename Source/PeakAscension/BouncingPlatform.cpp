@@ -6,5 +6,17 @@
 
 void ABouncingPlatform::PlayerPlatformHit(AActor* PlayerHit, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
 {
-	Cast<ACharacter>(PlayerHit)->LaunchCharacter(FVector(0, 0, 500), false, true);
+	
+	float ZForce = Cast<ACharacter>(PlayerHit)->GetMesh()->GetPhysicsLinearVelocity().Z;
+	UE_LOG(LogTemp, Warning, TEXT("Reference %f %s"), ZForce, *NormalImpulse.ToString())
+		
+	
+	if (ZForce <= MinimumBounceForce)
+	{
+		ZForce = ZForce * BounceForceRetention;
+		CurrentBounceForce = -ZForce;
+		Cast<ACharacter>(PlayerHit)->LaunchCharacter(FVector(0, 0, CurrentBounceForce), false, true);
+	}
+
+	UE_LOG(LogTemp, Warning, TEXT("Reference %f"), ZForce)
 }
