@@ -11,11 +11,16 @@ void ABouncingPlatform::PlayerPlatformHit(AActor* PlayerHit, UPrimitiveComponent
 	UE_LOG(LogTemp, Warning, TEXT("Reference %f %s"), ZForce, *NormalImpulse.ToString())
 		
 	
-	if (ZForce <= MinimumBounceForce)
+	if (ZForce <= MinimumBounceForce && bUseStaticBounce == false)
 	{
 		ZForce = ZForce * BounceForceRetention;
 		CurrentBounceForce = -ZForce;
 		Cast<ACharacter>(PlayerHit)->LaunchCharacter(FVector(0, 0, CurrentBounceForce), false, true);
+	}
+
+	else if (bUseStaticBounce == true)
+	{
+		Cast<ACharacter>(PlayerHit)->LaunchCharacter(FVector(0, 0, BaseBounceForce), false, true);
 	}
 
 	UE_LOG(LogTemp, Warning, TEXT("Reference %f"), ZForce)
