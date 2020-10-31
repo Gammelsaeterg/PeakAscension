@@ -13,5 +13,7 @@ UCLASS()
 class PEAKASCENSION_API ABouncingPlatform : public APlatformObject
 {
 	GENERATED_BODY()
+
+	virtual void PlayerPlatformHit(AActor* PlayerHit, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit) override;
 	
 };
