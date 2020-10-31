@@ -22,5 +22,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float RespawnTime{ 3.f };
 
-	bIsHit{ false };
+	bool bIsHit{ false };
+
+	FTimerHandle DurationBeforeFallHandle;
+	FTimerHandle RespawnTimeFallHandle;
+
+	virtual void PlayerPlatformHit(AActor* PlayerHit, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit) override;
+
+	void StartDurationBeforeFall();
+	void StartRespawnTime();
 };
