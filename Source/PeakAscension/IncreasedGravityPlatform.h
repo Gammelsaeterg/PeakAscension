@@ -14,7 +14,6 @@ class PEAKASCENSION_API AIncreasedGravityPlatform : public APlatformObject
 {
 	GENERATED_BODY()
 
-		
-
-	virtual void PlayerPlatformHit(AActor* PlayerHit, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit) override;
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float DecreaseJump{ 50.f };
 };
