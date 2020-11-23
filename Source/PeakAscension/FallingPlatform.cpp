@@ -10,6 +10,8 @@ void AFallingPlatform::PlayerPlatformHit(AActor* PlayerHit, UPrimitiveComponent*
 	{
 		GetWorldTimerManager().SetTimer(DurationBeforeFallHandle, this, &AFallingPlatform::StartDurationBeforeFall, DurationBeforeFall);
 	}
+
+	PlatformMesh->GetUpVector().Normalize();
 }
 
 void AFallingPlatform::StartDurationBeforeFall()
